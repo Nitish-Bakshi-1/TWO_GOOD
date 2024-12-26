@@ -5,3 +5,7 @@
 * {
   font: Futura Now Headline;
 }
+*::selection {
+  background-color: black;
+  color: #fff;
+}

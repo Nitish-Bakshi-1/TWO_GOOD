@@ -5,6 +5,13 @@ const HomePage = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const videoContainerRef = useRef(null);
   const cursorRef = useRef(null);
+  const hRef = useRef([]);
+
+  const addToRefs = (el) => {
+    if (el && !hRef.current.includes(el)) {
+      hRef.current.push(el);
+    }
+  };
 
   useEffect(function () {
     const handleMovement = (e) => {
@@ -22,20 +29,45 @@ const HomePage = () => {
       gsap.to(cursorRef.current, {
         opacity: 1,
         scale: 1,
+        duration: 0.3,
       });
     });
     videoContainerRef.current.addEventListener("mouseleave", function (e) {
       gsap.to(cursorRef.current, {
         opacity: 0,
         scale: 0,
+        duration: 0.3,
       });
     });
   }, []);
+  useEffect(() => {
+    gsap.fromTo(
+      hRef.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        duration: 0.6,
+        opacity: 1,
+        ease: "power3.out",
+        delay: 0.3,
+        stagger: 0.2,
+      }
+    );
+  }, []);
   return (
-    <div className="min-h-screen w-full pt-[12rem]    px-8">
-      <h1 className="text-[16vw] leading-[14vw] uppercase tracking-tight font-[1000]">
+    <div className=" min-h-screen w-full pt-[12rem] px-8">
+      <h1
+        ref={addToRefs}
+        className="text-[16vw] opacity-1   leading-[14vw] uppercase tracking-tight font-[1000]"
+      >
         Change
-        <br /> The Course
+      </h1>
+      <h1
+        ref={addToRefs}
+        className="text-[16vw] opacity-1   leading-[14vw] uppercase tracking-tight font-[1000]"
+      >
+        {" "}
+        The Course
       </h1>
       <div
         ref={videoContainerRef}
