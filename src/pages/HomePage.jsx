@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
 
 const HomePage = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const videoContainerRef = useRef(null);
+  const cursorRef = useRef(null);
+
   useEffect(function () {
     const handleMovement = (e) => {
       const rect = videoContainerRef.current.getBoundingClientRect();
@@ -13,6 +16,20 @@ const HomePage = () => {
       });
     };
     videoContainerRef.current.addEventListener("mousemove", handleMovement);
+  }, []);
+  useEffect(() => {
+    videoContainerRef.current.addEventListener("mouseenter", function (e) {
+      gsap.to(cursorRef.current, {
+        opacity: 1,
+        scale: 1,
+      });
+    });
+    videoContainerRef.current.addEventListener("mouseleave", function (e) {
+      gsap.to(cursorRef.current, {
+        opacity: 0,
+        scale: 0,
+      });
+    });
   }, []);
   return (
     <div className="min-h-screen w-full pt-[12rem]    px-8">
@@ -29,7 +46,8 @@ const HomePage = () => {
             transform: `translate(${position.x}px, ${position.y}px)`,
             position: "absolute",
           }}
-          className="py-7 px-4 flex justify-center items-center bg-black text-white text-2xl uppercase rounded-full font-bold"
+          ref={cursorRef}
+          className="py-7 px-4  flex justify-center items-center opacity-0 scale-0 bg-black text-white text-2xl uppercase rounded-full font-bold"
         >
           PLAY
         </div>
