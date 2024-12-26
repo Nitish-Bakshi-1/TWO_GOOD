@@ -46,11 +46,22 @@ const HomePage = () => {
       { y: 100, opacity: 0 },
       {
         y: 0,
-        duration: 0.6,
+        duration: 0.9,
         opacity: 1,
         ease: "power3.out",
-        delay: 0.3,
+        delay: 0.5,
         stagger: 0.2,
+      }
+    );
+    gsap.fromTo(
+      videoContainerRef.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        duration: 0.9,
+        opacity: 1,
+        ease: "power3.out",
+        delay: 1.3,
       }
     );
   }, []);
