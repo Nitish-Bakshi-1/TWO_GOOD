@@ -13,14 +13,14 @@ const HomePage = () => {
   const hRef = useRef([]);
   const mainRef = useRef(null);
 
-  // H1s reference---------------------------------------------------------------------------------------------------------------------
+  // H1s reference--------------------------------------------------------------------------------------------------------------
   const addToRefs = (el) => {
     if (el && !hRef.current.includes(el)) {
       hRef.current.push(el);
     }
   };
 
-  // animations and play cursor logic---------------------------------------------------------------------------------------------------------------------
+  // animations and play cursor logic-------------------------------------------------------------------------------------------
   useEffect(function () {
     const handleMovement = (e) => {
       const rect = videoContainerRef.current.getBoundingClientRect();
@@ -32,6 +32,7 @@ const HomePage = () => {
     };
     videoContainerRef.current.addEventListener("mousemove", handleMovement);
   }, []);
+
   useEffect(() => {
     videoContainerRef.current.addEventListener("mouseenter", function (e) {
       gsap.to(cursorRef.current, {
@@ -48,6 +49,7 @@ const HomePage = () => {
       });
     });
   }, []);
+
   useEffect(() => {
     gsap.fromTo(
       hRef.current,
