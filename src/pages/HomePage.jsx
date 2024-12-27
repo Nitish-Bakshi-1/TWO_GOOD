@@ -1,18 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
+import LocomotiveScroll from "locomotive-scroll";
+
+// LMOTIVE---------------------------------------------------------------------------------------------------------------------
+const scroll = new LocomotiveScroll();
 
 const HomePage = () => {
+  //INNER COMPONENTS IMPORTS
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const videoContainerRef = useRef(null);
   const cursorRef = useRef(null);
   const hRef = useRef([]);
+  const mainRef = useRef(null);
 
+  // H1s reference---------------------------------------------------------------------------------------------------------------------
   const addToRefs = (el) => {
     if (el && !hRef.current.includes(el)) {
       hRef.current.push(el);
     }
   };
 
+  // animations and play cursor logic---------------------------------------------------------------------------------------------------------------------
   useEffect(function () {
     const handleMovement = (e) => {
       const rect = videoContainerRef.current.getBoundingClientRect();
@@ -58,15 +66,16 @@ const HomePage = () => {
       { scale: 0.9, opacity: 0 },
       {
         scale: 1,
-        duration: 0.5,
+        duration: 0.9,
         opacity: 1,
         ease: "power3.out",
         delay: 1.3,
       }
     );
   }, []);
+
   return (
-    <div className=" min-h-screen w-full pt-[12rem] px-8">
+    <div className=" min-h-screen w-full pt-[12rem] px-8 " ref={mainRef}>
       <h1
         ref={addToRefs}
         className="text-[16vw] opacity-1   leading-[14vw] uppercase tracking-tight font-[1000]"
